@@ -9,6 +9,9 @@ import json
 import urllib
 from ..items import LagouJobInfo
 from scrapy import log
+import csv
+import time
+import random
 
 class Lagou_job_info(Spider):
 	"""docstring for Lagou_job_info"""
@@ -33,6 +36,7 @@ class Lagou_job_info(Spider):
 
 	def get_citynames(self):
 		'''从数据库查询得到城市名'''
+		'''
 		conn = MySQLdb.connect(host='localhost', user='root', passwd='qwer', charset='utf8', db='lagou')
 		cur = conn.cursor()
 		sql = 'select cityname from city where id>0 order by id'
@@ -41,10 +45,19 @@ class Lagou_job_info(Spider):
 		cur.close()
 		conn.close()
 		return [str(x[0].encode('utf-8')) for x in results]
+		'''
+		f = open('city.csv', 'r', encoding='utf-8')
+		csv_read = csv.reader(f)
+		results = []
+		for i in csv_read:
+			results.append(i)
+		
+		f.close()
+		return results
 
 	def get_job_names(self):
 		'''从数据库查询得到职业类型'''
-		conn = MySQLdb.connect(host='localhost', user='root', passwd='qwer', charset='utf8', db='lagou')
+		conn = MySQLdb.connect(host='localhost', user='root', passwd='Y', charset='utf8', db='lagou')
 		cur = conn.cursor()
 		sql = 'select job_name from job_category where id <=105'
 		cur.execute(sql)
@@ -115,6 +128,7 @@ class Lagou_job_info(Spider):
 				item['formatCreateTime'] = result.get('formatCreateTime')
 				yield item
 			# 当前页处理完成后生成下一页的request对象
+			time.sleep(random.randint(60,90))
 			page = int(response.meta.get('page')) + 1
 			kd = response.meta.get('kd')
 			yield scrapy.FormRequest(response.url, formdata={'pn':str(page), 'kd':kd}, headers=self.headers, meta={'page':page, 'kd':kd}, dont_filter=True)

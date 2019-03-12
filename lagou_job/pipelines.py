@@ -9,7 +9,7 @@ from scrapy import log
 
 class LagouJobCategoryDbPipeline(object):
     def process_item(self, item, spider):
-        conn = MySQLdb.connect(host='localhost', user='root', passwd='qwer', charset='utf8', db='lagou')
+        conn = MySQLdb.connect(host='ll', user='root', passwd='ll', charset='utf8', db='Jobs')
         cur = conn.cursor()
         sql = 'insert into job_category(job_name, job_url, job_category_level1, job_category_level2) values(%s, %s, %s, %s)'
         keys = ['job_name', 'job_url', 'job_category_level1', 'job_category_level2']

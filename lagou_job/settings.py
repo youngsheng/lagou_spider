@@ -27,6 +27,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
+CONCURRENT_REQUESTS = 1
 DOWNLOAD_DELAY = 1
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
@@ -52,11 +53,11 @@ DOWNLOAD_DELAY = 1
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-	'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
-	'lagou_job.middlewares.ProxyMiddleWare': 750,
-	'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware':None
-}
+#DOWNLOADER_MIDDLEWARES = {
+#	'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+#	'lagou_job.middlewares.ProxyMiddleWare': 750,
+#	'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware':None
+#}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -67,8 +68,8 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   # 'lagou_job.pipelines.LagouJobCategoryDbPipeline': 300,
-   'lagou_job.pipelines.LagouJobInfoDbPipeline': 300,
+	'lagou_job.pipelines.LagouJobCategoryDbPipeline': 300,
+   	#'lagou_job.pipelines.LagouJobInfoDbPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
